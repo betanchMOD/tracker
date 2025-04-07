@@ -101,19 +101,11 @@ if (!proposal.value) {
 </script>
 <template>
 	<div class="">
-		<ProposalsHeader
-			:title="proposal?.name"
-			class="fixed top-0 z-20 flex justify-center w-full p-2"
-			:name="proposal?.name"
-			:organization="proposal?.organization?.name"
-		/>
+		<ProposalsHeader :title="proposal?.name" class="fixed top-0 z-20 flex justify-center w-full p-2"
+			:name="proposal?.name" :organization="proposal?.organization?.name" />
 		<div class="overflow-y-auto">
-			<ProposalsBlocksHero
-				class="pt-36"
-				:name="proposal?.name"
-				:owner="proposal?.owner"
-				:organization="proposal?.organization?.name"
-			/>
+			<ProposalsBlocksHero class="pt-36" :name="proposal?.name" :owner="proposal?.owner"
+				:organization="proposal?.organization?.name" />
 			<!-- Render the page using the PageBuilder component -->
 			<PageBuilder v-if="proposal" id="content" :page="proposal as OsProposal" />
 			<ProposalsBlocksAcceptance id="accept" class="max-w-3xl mx-auto" />

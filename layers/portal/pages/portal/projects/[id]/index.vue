@@ -94,24 +94,23 @@ const milestones = computed(() => {
 			<!-- Project Team -->
 			<TypographyHeadline content="Team" size="xs" />
 			<div class="grid divide-y-2 md:divide-y-0 md:divide-x-2 md:grid-cols-2 dark:divide-gray-700">
-				<div class="p-4 space-y-4">
-					<Logo class="h-6" />
-					<p class="text-sm font-bold">{{ /* @TODO */ 'Company Name' }}</p>
+				<div class="p-4 space-y-4 ">
+					<Logo class="h-6 m-auto" />
+					<p class=" text-sm font-bold">{{ /* @TODO */ 'Company Name' }}</p>
 
 					<VLabel label="Project Owner" />
 					<VAvatar :author="project?.owner" size="sm" />
 				</div>
 				<div class="p-4 space-y-4">
-					<img v-if="project?.organization?.logo" :src="fileUrl(project?.organization?.logo)" class="h-6" />
+					<div class="bg-white w-10 h-10 flex justify-center rounded-full">
+						<img v-if="project?.organization?.logo" :src="fileUrl(project?.organization?.logo)"
+							class="h-6 m-auto" />
+					</div>
 					<p class="text-sm font-bold">{{ project?.organization?.name }}</p>
 
 					<VLabel label="Contacts" />
-					<UserBadge
-						v-for="contact in project?.contacts"
-						:key="contact.contacts_id?.id"
-						:user="contact.contacts_id"
-						size="sm"
-					/>
+					<UserBadge v-for="contact in project?.contacts" :key="contact.contacts_id?.id"
+						:user="contact.contacts_id" size="sm" />
 				</div>
 			</div>
 		</UCard>

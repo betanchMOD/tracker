@@ -54,47 +54,69 @@ const userNavigation = [
 
 const { showCommandPalette } = useCommandPalette();
 const mobileMenuOpen = ref(false);
+
+
+import { useFiles } from '#imports';
+const { fileUrl } = useFiles();
+
+
+const avatarUrl = computed(() => {
+	return user.value?.avatar ? fileUrl(user.value.avatar) : undefined;
+});
+
+console.log(avatarUrl.value)
+
 </script>
 
 <template>
-	<div class="flex h-full transition duration-150 bg-gray-100 dark:bg-gray-950">
+	<div class="flex h-full transition duration-150 bg-black">
 		<div class="hidden p-3 md:block">
 			<!-- Narrow sidebar -->
-			<div class="w-24 h-full bg-gray-900 rounded-panel">
+			<div class="w-24 h-full bg-white rounded-panel shadow-md">
 				<div class="flex flex-col items-center w-full h-full py-6">
 					<div class="flex items-center flex-shrink-0">
-						<Logo class="w-20 text-white" alt="Your Company" />
+						<Logo class="w-20 text-black" alt="Your Company" />
 					</div>
 					<div class="flex flex-col justify-between flex-1 h-full gap-y-4">
 						<div class="w-full px-2 mt-6 space-y-1">
 							<component :is="item.href ? NuxtLink : 'button'" v-for="item in sidebarNavigation.top"
 								:key="item.name" :href="item.href ?? undefined" :class="[
-									item.current ? 'bg-gray-800 text-white' : 'text-gray-100 hover:bg-gray-800 hover:text-white',
-									'group flex w-full flex-col items-center rounded-card py-3 px-2 text-xs font-bold ',
+									item.current
+										? 'bg-gray-100 text-black'
+										: 'text-gray-800 hover:bg-gray-100 hover:text-black',
+									'group flex w-full flex-col items-center rounded-card py-3 px-2 text-xs font-bold',
 								]" :aria-current="item.current ? 'page' : undefined" @click="item.click ? item.click() : undefined">
 								<UIcon :name="item.icon"
-									:class="[item.current ? 'text-white' : 'text-gray-300 group-hover:text-white', 'h-6 w-6']"
+									:class="[item.current ? 'text-black' : 'text-gray-500 group-hover:text-black', 'h-6 w-6']"
 									aria-hidden="true" />
 								<span class="mt-2">{{ item.name }}</span>
 							</component>
 						</div>
+
 						<div class="flex flex-col items-center justify-center w-full px-2 space-y-2">
 							<NuxtLink v-for="item in sidebarNavigation.bottom" :key="item.name" :href="item.href"
 								:class="[
-									item.current ? 'bg-gray-800 text-white' : 'text-gray-100 hover:bg-gray-800 hover:text-white',
-									'group flex w-full flex-col items-center rounded-card py-3 px-2 text-xs font-bold ',
+									item.current
+										? 'bg-gray-100 text-black'
+										: 'text-gray-800 hover:bg-gray-100 hover:text-black',
+									'group flex w-full flex-col items-center rounded-card py-3 px-2 text-xs font-bold',
 								]" :aria-current="item.current ? 'page' : undefined">
 								<UIcon :name="item.icon"
-									:class="[item.current ? 'text-white' : 'text-gray-300 group-hover:text-white', 'h-6 w-6']"
+									:class="[item.current ? 'text-black' : 'text-gray-500 group-hover:text-black', 'h-6 w-6']"
 									aria-hidden="true" />
 								<span class="mt-2">{{ item.name }}</span>
 							</NuxtLink>
-							<DarkModeToggle bg="dark" class="" />
+
+							<!-- <DarkModeToggle bg="dark" class="" /> -->
 							<!-- Profile dropdown -->
 							<UDropdown class="relative" :items="userNavigation">
 								<button>
 									<span class="sr-only">Open user menu</span>
-									<UAvatar class="w-12 h-12 mx-auto" :src="user.avatar" :alt="userName(user)" />
+									<UAvatar class="w-12 h-12 rounded-full" :src="avatarUrl" :alt="userName(user)" />
+
+									<!-- <UIcon name="i-heroicons-user-circle" class="w-12 h-12 mx-auto text-gray-400" /> -->
+
+
 								</button>
 							</UDropdown>
 						</div>

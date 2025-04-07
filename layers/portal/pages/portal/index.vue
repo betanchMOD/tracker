@@ -123,8 +123,9 @@ const projectsShown = computed(() => {
 
 <template>
 	<PageContainer>
-		<img class="w-48 ml-auto mr-0" src="~/assets/illustrations/tokyo-luminous-table-lamp-on-boxes.svg" />
-		<TypographyTitle class="normal-case">{{ greetUser() }} {{ user?.first_name ?? 'friend' }},</TypographyTitle>
+		<!-- <img class="w-48 ml-auto mr-0" src="~/assets/illustrations/tokyo-luminous-table-lamp-on-boxes.svg" /> -->
+		<TypographyTitle class="normal-case text-white">{{ greetUser() }} {{ user?.first_name ?? 'friend' }},
+		</TypographyTitle>
 		<!-- <TypographyHeadline :content="getTodaysMessage()" size="xl" /> -->
 
 		<VDivider class="my-8" />
