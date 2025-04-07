@@ -2,8 +2,14 @@
 import type { OsTask } from '~/types';
 import { readItems } from '@directus/sdk';
 import ProjectMilestoneStepper from '~/components/ProjectMilestoneStepper.vue';
+import { greetUser } from '../../../../utils/time';
+
 
 const { user } = useDirectusAuth();
+watchEffect(() => {
+	console.log('user:', user);
+});
+
 const { path } = useRoute();
 
 const milestoneSteps = ['Discovery', 'Design', 'Development', 'Testing', 'Launch'];
@@ -73,6 +79,7 @@ const { data: projects } = await useAsyncData(
 	{},
 );
 
+
 // 🎯 3. Task formatting for stepper
 type TaskStatus = 'pending' | 'active' | 'in_progress' | 'in_review' | 'completed';
 
@@ -118,7 +125,7 @@ const projectsShown = computed(() => {
 	<PageContainer>
 		<img class="w-48 ml-auto mr-0" src="~/assets/illustrations/tokyo-luminous-table-lamp-on-boxes.svg" />
 		<TypographyTitle class="normal-case">{{ greetUser() }} {{ user?.first_name ?? 'friend' }},</TypographyTitle>
-		<TypographyHeadline :content="getTodaysMessage()" size="xl" />
+		<!-- <TypographyHeadline :content="getTodaysMessage()" size="xl" /> -->
 
 		<VDivider class="my-8" />
 
@@ -154,12 +161,8 @@ const projectsShown = computed(() => {
 				</template>
 
 				<template #actions-data="{ row }">
-					<UButton
-						:to="`/portal/projects/${row.id}`"
-						color="primary"
-						variant="outline"
-						icon="i-heroicons-arrow-right"
-					/>
+					<UButton :to="`/portal/projects/${row.id}`" color="primary" variant="outline"
+						icon="i-heroicons-arrow-right" />
 				</template>
 			</UTable>
 		</UCard>
