@@ -21,51 +21,43 @@ const milestoneIcons: Record<string, string> = {
 		<template v-for="(step, i) in steps" :key="step">
 			<li class="flex flex-col items-center gap-1 text-center relative">
 				<!-- Large View -->
-				<div
-					v-if="size === 'lg'"
-					:class="[
-						'relative flex items-center justify-center rounded-full flex-shrink-0',
-						steps.indexOf(step) < steps.indexOf(currentStep)
-							? 'bg-primary text-white'
-							: step === currentStep
-								? 'border-primary border-dashed text-primary'
-								: 'dark:border-gray-700 border-gray-300 text-gray-400',
-						'h-10 w-10 border-2',
-					]"
-				>
+				<div v-if="size === 'lg'" :class="[
+					'relative flex items-center justify-center rounded-full flex-shrink-0 h-10 w-10 border-2 transition-all duration-500',
+					step === currentStep
+						? step === steps.at(-1)
+							? 'bg-primary text-white animate-pulse ring-2 ring-primary/40 ring-offset-2'
+							: 'animate-pulse border-primary text-primary ring-2 ring-primary/40 ring-offset-2'
+						: ''
+					,
+					steps.indexOf(step) < steps.indexOf(currentStep)
+						? 'bg-primary text-white'
+						: step === currentStep
+							? ''
+							: 'dark:border-gray-700 border-gray-300 text-gray-400',
+				]">
 					<UIcon :name="milestoneIcons[step]" class="w-5 h-5" />
 				</div>
 
-				<!-- Step label -->
-				<span v-if="size === 'lg'" class="text-xs font-medium text-gray-600 dark:text-gray-300">
-					{{ step }}
-				</span>
-
-				<!-- Small View (mini stepper) -->
-				<div
-					v-else
-					:class="[
-						'flex items-center justify-center w-9 h-9 rounded-full',
-						i <= getMilestoneIndex(currentStep, steps)
-							? 'bg-primary text-white'
-							: 'border border-gray-400 text-gray-400',
-					]"
-				>
+				<!-- Small View -->
+				<div v-else :class="[
+					'flex items-center justify-center w-9 h-9 rounded-full transition-all duration-500',
+					step === currentStep
+						? 'animate-pulse border-2 border-primary text-primary ring-2 ring-primary/40 ring-offset-2'
+						: '',
+					i <= getMilestoneIndex(currentStep, steps)
+						? 'bg-primary text-white'
+						: 'border border-gray-400 text-gray-400',
+				]">
 					<UIcon :name="milestoneIcons[step]" class="w-3.5 h-3.5" />
 				</div>
+
 			</li>
 
 			<!-- Divider -->
-			<li
-				v-if="i !== steps.length - 1"
-				class="flex items-center justify-center flex-shrink-0"
-				:class="size === 'lg' ? 'w-6' : 'w-4'"
-				aria-hidden="true"
-			>
-				<div
-					class="h-0.5 w-full"
-					:class="[i < getMilestoneIndex(currentStep, steps) ? 'bg-primary' : 'bg-gray-300 dark:bg-gray-700']"
-				/>
+			<li v-if="i !== steps.length - 1" class="flex items-center justify-center flex-shrink-0"
+				:class="size === 'lg' ? 'w-6' : 'w-4'" aria-hidden="true">
+				<div class="h-0.5 w-full"
+					:class="[i < getMilestoneIndex(currentStep, steps) ? 'bg-primary' : 'bg-gray-300 dark:bg-gray-700']" />
 			</li>
 		</template>
 	</ul>
