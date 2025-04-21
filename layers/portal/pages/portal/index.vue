@@ -161,10 +161,10 @@ const projectsShown = computed(() => {
 					<ProjectMilestoneStepper :steps="milestoneSteps" :current-step="row.current_milestone" size="sm" />
 				</template>
 
-				<template #actions-data="{ row }">
+				<!-- <template #actions-data="{ row }">
 					<UButton :to="`/portal/projects/${row.id}`" color="primary" variant="outline"
 						icon="i-heroicons-arrow-right" />
-				</template>
+				</template> -->
 			</UTable>
 		</UCard>
 	</PageContainer>
